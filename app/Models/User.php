@@ -46,6 +46,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'password'          => 'hashed',
     ];
 
+    /**
+     *@return HasMany<Vote>
+     */
     public function votes(): HasMany
     {
         return $this->hasMany(Vote::class);
