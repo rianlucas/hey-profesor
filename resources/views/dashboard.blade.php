@@ -7,6 +7,7 @@
 
     <x-container>
         <x-form post :action="route('question.store')">
+            <x-textarea label="Question" name="question"></x-textarea>
 
             <x-btn.primary type="submit">Save</x-btn.primary>
             <x-btn.reset type="reset">Cancel</x-btn.reset>

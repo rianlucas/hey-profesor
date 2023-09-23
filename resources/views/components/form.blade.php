@@ -7,7 +7,7 @@
 
 
 
-<form action="{{ route('question.store') }}" method="post">
+<form action="{{ $action }}" method="post" {{ $attributes }}>
     @csrf
 
     @if($put)
@@ -18,6 +18,5 @@
         @method('DELETE')
     @endif
 
-    <x-textarea label="Question" name="question"></x-textarea>
     {{ $slot }}
 </form>
