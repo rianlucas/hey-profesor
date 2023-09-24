@@ -13,6 +13,9 @@ class PublishController extends Controller
      */
     public function __invoke(Question $question): RedirectResponse
     {
+        $this->authorize('publish', $question);
+        //        user()->can('publish', $question) ?: abort(403);
+
         $question->update(['draft' => false]);
 
         return back();

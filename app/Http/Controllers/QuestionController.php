@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Question;
 use App\Rules\EndWithQuestionMarkRule;
 use Illuminate\Http\{RedirectResponse, Request, Response};
 
@@ -18,7 +17,7 @@ class QuestionController extends Controller
             ],
         ]);
 
-        Question::query()
+        user()->questions()
             ->create([
                 'question' => request()->question,
                 'draft'    => true,
