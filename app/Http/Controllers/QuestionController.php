@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Question;
 use App\Rules\EndWithQuestionMarkRule;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\{RedirectResponse, Request, Response};
@@ -29,6 +30,14 @@ class QuestionController extends Controller
                 'question' => request()->question,
                 'draft'    => true,
             ]);
+
+        return back();
+    }
+
+    public function Destroy(Question $question): RedirectResponse
+    {
+        $this->authorize('destroy', $question);
+        $question->delete();
 
         return back();
     }
