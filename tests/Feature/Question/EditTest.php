@@ -45,3 +45,20 @@ it('should make sure that only questions with status DRAFT can be edit', functio
     get(route('question.edit', $questionNoDraft))->assertForbidden();
     get(route('question.edit', $draftQuestion))->assertSuccessful();
 });
+
+it('should make sure that only the person who has created the question can edit the question', function () {
+    $user      = User::factory()->create();
+    $wrongUser = User::factory()->create();
+
+    $question = Question::factory()
+        ->for($user, 'createdBy')
+        ->create(['draft' => true]);
+
+    actingAs($wrongUser);
+
+    (get(route('question.edit', $question)))->assertForbidden();
+
+    actingAs($user);
+    (get(route('question.edit', $question)))->assertSuccessful();
+
+});
