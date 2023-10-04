@@ -24,6 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/question/like/{question}', Question\LikeController::class)->name('question.like');
     Route::post('/question/unlike/{question}', Question\UnlikeController::class)->name('question.unlike');
     Route::put('/question/publish/{question}', Question\PublishController::class)->name('question.publish');
+    Route::put('/question/{question}', [QuestionController::class, 'update'])->name('question.update');
     Route::delete('/question/destroy/{question}', [QuestionController::class, 'destroy'])->name('question.destroy');
 
     // Profile Routes
