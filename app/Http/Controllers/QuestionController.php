@@ -53,6 +53,14 @@ class QuestionController extends Controller
     {
         $this->authorize('update', $question);
 
+        request()->validate([
+            'question' => [
+                'required',
+                'min:10',
+                new EndWithQuestionMarkRule(),
+            ],
+        ]);
+
         $question->question = request()->question;
         $question->save();
 
