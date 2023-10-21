@@ -42,7 +42,7 @@
                                     </button>
                                 </x-form>
 
-                                <x-form :action="route('question.destroy', $question)" delete >
+                                <x-form :action="route('question.destroy', $question)" delete onsubmit="return confirm('Tem certeza?')">
                                     <button type="submit" class="hover:underline text-blue-500">
                                         Delete
                                     </button>
@@ -57,9 +57,46 @@
                 </tbody>
             </x-table>
 
+
+            <div class="dark:text-gray-300 font-bold mb-1 uppercase">
+                Archived Questions
+            </div>
+
+            <div class="dark:text-gray-400 space-y-4">
+
+                <x-table>
+                    <x-table.thead>
+                        <tr>
+                            <x-table.th> Question </x-table.th>
+                            <x-table.th> Actions </x-table.th>
+                        </tr>
+                    </x-table.thead>
+                    <tbody>
+
+                    @foreach($archivedQuestion->where('draft', '=', false) as $question)
+                        <x-table.tr>
+                            <x-table.td>{{ $question->question }}</x-table.td>
+                            <x-table.td>
+
+                                <x-form :action="route('question.restore', $question)" patch >
+                                    <button type="submit" class="hover:underline text-blue-500">
+                                        Restore
+                                    </button>
+                                </x-form>
+
+
+                            </x-table.td>
+                        </x-table.tr>
+                    @endforeach
+
+                    </tbody>
+                </x-table>
+
+
             <div class="dark:text-gray-300 font-bold mb-1 uppercase">
                 My Questions
             </div>
+
 
             <div class="dark:text-gray-400 space-y-4">
 
@@ -77,9 +114,15 @@
                             <x-table.td>{{ $question->question }}</x-table.td>
                             <x-table.td>
 
-                                <x-form :action="route('question.destroy', $question)" delete >
+                                <x-form :action="route('question.destroy', $question)" delete onsubmit="return confirm('Tem certeza?')">
                                     <button type="submit" class="hover:underline text-blue-500">
                                         Delete
+                                    </button>
+                                </x-form>
+
+                                <x-form :action="route('question.archive', $question)" patch >
+                                    <button type="submit" class="hover:underline text-blue-500">
+                                        Archive
                                     </button>
                                 </x-form>
 

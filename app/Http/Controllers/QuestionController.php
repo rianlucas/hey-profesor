@@ -12,7 +12,8 @@ class QuestionController extends Controller
     public function index(): View
     {
         return view('question.index', [
-            'questions' => user()->questions,
+            'questions'        => user()->questions,
+            'archivedQuestion' => user()->questions()->onlyTrashed()->get(),
         ]);
     }
     public function store(): RedirectResponse
@@ -37,7 +38,7 @@ class QuestionController extends Controller
     public function Destroy(Question $question): RedirectResponse
     {
         $this->authorize('destroy', $question);
-        $question->delete();
+        $question->forceDelete();
 
         return back();
     }
@@ -65,5 +66,22 @@ class QuestionController extends Controller
         $question->save();
 
         return to_route('question.index');
+    }
+
+    public function archive(Question $question): RedirectResponse
+    {
+        $this->authorize('archive', $question);
+
+        $question->delete();
+
+        return back();
+    }
+
+    public function restore(int $id): RedirectResponse
+    {
+        $question = Question::withTrashed()->findOrFail($id);
+        $question->restore();
+
+        return back();
     }
 }

@@ -20,7 +20,7 @@ it('should be able to destroy a question', function () {
     ]);
 });
 
-it('should make sure that the only person that has create the question can publish the question', function () {
+it('should make sure that the only person that has create the question can delete the question', function () {
     $rightUser = User::factory()->create();
     $question  = Question::factory()->create(['draft' => true, 'created_by' => $rightUser->id]);
     $wrongUser = User::factory()->create();
