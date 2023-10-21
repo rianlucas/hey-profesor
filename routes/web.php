@@ -24,7 +24,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/question/unlike/{question}', Question\UnlikeController::class)->name('question.unlike');
     Route::put('/question/publish/{question}', Question\PublishController::class)->name('question.publish');
     Route::put('/question/{question}', [QuestionController::class, 'update'])->name('question.update');
-    Route::patch('/question/{question}', [QuestionController::class, 'archive'])->name('question.archive');
+    Route::patch('/question/{question}/archive', [QuestionController::class, 'archive'])->name('question.archive');
+    Route::patch('/question/{question}/restore', [QuestionController::class, 'restore'])->name('question.restore');
     Route::delete('/question/destroy/{question}', [QuestionController::class, 'destroy'])->name('question.destroy');
 
     // Profile Routes
